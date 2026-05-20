@@ -12,9 +12,9 @@ import remarkTabbed from 'remark-tabbed'
 import { read, writeSync } from 'to-vfile'
 import { Type, Schema, load } from 'js-yaml'
 
-import _snippet from '../remark-snippet/index.js'
-import remarkTypst from '../remark-typst/index.js'
-import escape from '../remark-typst/escape-typst/src/index.js'
+import _snippet from './remark-snippet/index.js'
+import remarkTypst from './remark-typst/index.js'
+import escape from './remark-typst/escape-typst/src/index.js'
 // import remarkTabbed from '../remark-tabbed/lib/index.js'
 
 const PREFIX_REGEX = /[^a-zA-Z0-9]/ig
@@ -38,16 +38,16 @@ async function exists(file) {
 
 async function main() {
   if (process.argv.length !== 3) {
-    console.log('Usage: node ' + __filename.split('/').pop() + ' <oi-wiki-root>')
+    console.log('Usage: node ' + __filename.split('/').pop() + ' <pstrode-root>')
     process.exit()
   }
 
-  const oiwikiRoot = process.argv[2] // OI Wiki 根目录
-  const yamlFile = join(oiwikiRoot, 'mkdocs.yml') // YAML 配置文件
+  const pstrodeRoot = process.argv[2] // pstrode 根目录
+  const yamlFile = join(pstrodeRoot, 'mkdocs.yml') // YAML 配置文件
 
   console.log(INFO + 'Processing snippets')
 
-  await _snippet(oiwikiRoot)
+  await _snippet(pstrodeRoot)
 
   console.log(INFO + 'Checking for typ/ directory')
 
@@ -55,7 +55,7 @@ async function main() {
     await fs.mkdir('typ')
     await fs.mkdir('images')
   } catch (e) {}
-  console.log(INFO + 'Exporting OI Wiki from directory: ' + oiwikiRoot)
+  console.log(INFO + 'Exporting pstrode from directory: ' + pstrodeRoot)
 
   if (!await exists(yamlFile)) {
     console.error(ERROR + 'Config file \'mkdocs.yml\' does not exist')
@@ -112,7 +112,7 @@ async function main() {
         prefix: filename.replace(PREFIX_REGEX, '').replace(/md$/, ''), // 根据路径生成 ID，用作 label
         depth: depth, // 标题 h1 深度
         current: filename, // 带 md 后缀的文件名
-        root: join(oiwikiRoot, 'docs'), // docs/ 目录
+        root: join(pstrodeRoot, 'docs'), // docs/ 目录
         nested: false,
         forceLinebreak: false,
         path: filename.replace(/\.md$/, '/'), // 由文件名转换而来的路径
@@ -138,7 +138,7 @@ async function main() {
       console.log(INFO + 'Exporting: ' + key)
 
       if (typeof object[key] === 'string') { // 对应页面
-        await convertMarkdown(join(oiwikiRoot, 'docs', object[key]), depth + 1, object[key])
+        await convertMarkdown(join(pstrodeRoot, 'docs', object[key]), depth + 1, object[key])
 
         const moduleName = escape(getModuleName(object[key]))
         result += '{0} {1} <{2}>\n'.format(
@@ -155,7 +155,7 @@ async function main() {
         } else {
           labelHistory.push(dirName)
           if (depth === 0) {
-            result += `#import "../oi-wiki.typ": page-header
+            result += `#import "../pstrode.typ": page-header
 #pagebreak(to: "odd", weak: true)
 #set page(header: none)
 `
@@ -202,7 +202,7 @@ async function main() {
   }
 
   function getModuleName(name) {
-    return join(oiwikiRoot, 'docs', name).replace(PREFIX_REGEX, '')
+    return join(pstrodeRoot, 'docs', name).replace(PREFIX_REGEX, '')
   }
 }
 

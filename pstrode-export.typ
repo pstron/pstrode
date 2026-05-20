@@ -2,7 +2,7 @@
 
 /* BEGIN imports */
 #import "constants.typ": *
-#import "oi-wiki.typ": page-header
+#import "pstrode.typ": page-header
 /* END imports */
 #show ref: it => {
   if query(it.target).len() == 0 {
@@ -27,22 +27,19 @@
 )
 
 #align(center + horizon)[
-  // OI-Wiki logo
-  #image(
-    bytes("<svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z\"></path></svg>"),
-    height: 4cm,
-  )
+  // pstron logo
+  #image("pstron.svg", height: 4cm)
   #text(
     25pt,
     font: serif-font,
     weight: 700,
-  )[OI Wiki (Beta)]
+  )[pstrode]
   #v(4cm)
   #text(
     18pt,
     font: serif-font,
   )[
-    OI Wiki 项目组
+    pstron
 
     #(
       datetime
@@ -215,6 +212,6 @@
 
 #align(
   center + horizon,
-  text(17pt)[https://oi-wiki.org],
+  text(17pt)[gto.sh/cp],
 )
 /* END back cover */

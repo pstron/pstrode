@@ -1,15 +1,13 @@
 node_modules/*
-oi-wiki-export/node_modules/*
 remark-latex/node_modules/*
 remark-snippet/node_modules/*
 
-OI-wiki/
+pstrode/
 
-oi-wiki-export-typst/node_modules/
-oi-wiki-export-typst/typ/
-oi-wiki-export-typst/images/
-oi-wiki-export-typst/includes.typ
-oi-wiki-export-typst/playground.typ
+typ/
+images/
+includes.typ
+playground.typ
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
