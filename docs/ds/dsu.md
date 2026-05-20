@@ -41,7 +41,7 @@ struct dsu {
 
 有路径压缩和按大小合并。用额外空间维护大小信息。
 
-`size[x]` 可查询连通块大小。
+可通过 `dsu.size[dsu.find(x)]` 查询连通块大小。
 
 所需头文件：
 
@@ -91,6 +91,7 @@ struct dsu {
 
 - `<vector>`
 - `<algorithm>`
+- `<utility>`
 
 ```cpp
 struct dsu {
