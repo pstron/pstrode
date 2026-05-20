@@ -1,4 +1,42 @@
 site_name: pstrode
-site_url: https://code.feynmach.com
+site_description: pstrode 是 pstron 的个人的收集整理 XCPC 算法模板的项目
+site_author: pstron
+site_url: https://cp.feynmach.com
+
+copyright: 'Copyright &copy; 2026 pstron'
+
+nav:
+  - 主页: index.md
+  - 基本:
+      - Vim: basic/vim.md
+      - C++: basic/cpp.md
+  - 数学:
+      - 快速幂: math/binpow.md
+  - 数据结构:
+      - 并查集: ds/dsu.md
+
 theme:
-  - material
+  name: material
+  language: 'zh'
+  features:
+    - content.code.copy
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.arithmatex:
+      generic: true
+  - toc:
+      permalink: true
+
+extra:
+  generator: false
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js

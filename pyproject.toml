@@ -3,7 +3,8 @@ name = "pstrode"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.12"
 dependencies = [
     "mkdocs-material>=9.7.6",
+    "pymdown-extensions>=10.21.3",
 ]
