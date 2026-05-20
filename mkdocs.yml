@@ -6,7 +6,9 @@ site_url: https://cp.feynmach.com
 copyright: 'Copyright &copy; 2026 pstron'
 
 nav:
-  - 主页: index.md
+  - 主页:
+      - 欢迎: index.md
+      - 打印: intro/print.md
   - 基本:
       - Vim: basic/vim.md
       - C++: basic/cpp.md
@@ -20,16 +22,71 @@ theme:
   language: 'zh'
   features:
     - content.code.copy
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+    - toc.integrate
 
 plugins:
   - search
 
 markdown_extensions:
+  # Tooltips
+  - abbr
+  # Admonitions
   - admonition
+  # Annotations, Buttons, Grids, Icons & Emojis, Images, Tooltips
+  - attr_list
+  # Footnotes
+  - footnotes
+  # Annotations, Grids, Images
+  - md_in_html
+  # Images
+  - pymdownx.blocks.caption
+  # Formatting
+  - pymdownx.caret
+  # Formatting
+  - pymdownx.critic
+  # Admonitions
   - pymdownx.details
-  - pymdownx.superfences
-  - pymdownx.highlight
+  # Icons & Emojis
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  # Code Blocks
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  # Code Blocks
   - pymdownx.inlinehilite
+  # Formatting
+  - pymdownx.keys
+  # Formatting
+  - pymdownx.mark
+  # Code Blocks, Tooltips
+  - pymdownx.snippets
+  # Admonitions, Annotations, Code Blocks, Content Tabs
+  - pymdownx.superfences
+  # Content Tabs
+  - pymdownx.tabbed:
+      alternate_style: true
+  # Lists
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  # Formatting
+  - pymdownx.tilde
+  # Data Tables
+  - tables
+  # Math
   - pymdownx.arithmatex:
       generic: true
   - toc:
