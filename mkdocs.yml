@@ -14,8 +14,10 @@ nav:
       - C++: basic/cpp.md
   - 数学:
       - 快速幂: math/binpow.md
+      - 模逆元: math/modinv.md
   - 数据结构:
       - 并查集: ds/dsu.md
+      - ST 表: ds/st.md
 
 theme:
   name: material
