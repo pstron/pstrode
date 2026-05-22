@@ -1,4 +1,15 @@
-代码量小，支持区间询问。
+## ST 表
+
+### 简介
+
+代码量小，支持区间询问。适用于 RMQ 。
+
+所需头文件：
+
+- `<vector>`
+- `<bit>` （可选，用于 `lg2` ）
+
+### 代码
 
 需要预先定义 `lg2` 函数，用于取 $\lfloor \log_2(i) \rfloor$ 。
 
@@ -13,38 +24,34 @@
 2. 使用内置函数 `__builtin_clzll`
 
     ```cpp
-    constexpr int lg2(unsigned long long i) {
+    int lg2(unsigned long long i) {
         return i ? __builtin_clzll(1) - __builtin_clzll(i) : -1;
     }
     ```
 
-所需头文件：
-
-- `<vector>`
-- `<bit>` （可选，用于 `lg2` ）
-
 ```cpp
 template <typename T, auto op>
 struct st {
-  std::vector<std::vector<T>> st_;
-  explicit st(const std::vector<T>& v) {
-    int n = (int)v.size(), l = lg2(n);
-    st_.assign(l + 1, std::vector<T>(n, 0));
-    for (int i = 0; i < n; ++i) {
-      st_[0][i] = v[i];
+    std::vector<std::vector<T>> st_;
+    explicit st(const std::vector<T>& v) {
+        int n = (int)v.size(), l = lg2(n);
+        st_.assign(l + 1, std::vector<T>(n, 0));
+        for (int i = 0; i < n; ++i) {
+            st_[0][i] = v[i];
+        }
+        for (int j = 1; j <= l; ++j) {
+            for (int i = 0; i + (1 << j) <= n; ++i) {
+                st_[j][i] = op(st_[j - 1][i], st_[j - 1][i + (1 << (j - 1))]);
+            }
+        }
     }
-    for (int j = 1; j <= l; ++j) {
-      for (int i = 0; i + (1 << j) <= n; ++i) {
-        st_[j][i] = op(st_[j - 1][i], st_[j - 1][i + (1 << (j - 1))]);
-      }
+    T query(int l, int r) {
+        int q = lg2(r - l);
+        return op(st_[q][l], st_[q][r - (1 << q)]);
     }
-  }
-  T query(int l, int r) {
-    int q = lg2(r - l + 1);
-    return op(st_[q][l], st_[q][r - (1 << q) + 1]);
-  }
 };
 ```
+### 说明
 
 对于 `op` ：
 
@@ -60,13 +67,15 @@ static_assert(std::is_convertible_v<decltype(op), std::function<T(T, T)>>,
 * **结合律**：`op(op(a, b), c) == op(a, op(b, c))`
 * **可重复贡献**：`op(x, x) == x`
 
-示例：
+### 示例
 
 ```cpp
 st<int, [](int x, int y) { return std::max(x, y); }> st_max(a);
 ```
 
 对类型为 `std::vector<int>` 的 `a` 建立 ST 表以回答区间 max 问题。
+
+### 复杂度
 
 | 项目                   |             复杂度 |
 | ---------------------- | -----------------: |

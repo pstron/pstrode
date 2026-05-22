@@ -8,6 +8,6 @@ $$
 
 ```cpp
 i64 inv(i64 a, i64 p) {
-  return binpow(a, p - 2, p);
+    return binpow(a, p - 2, p);
 }
 ```

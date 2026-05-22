@@ -1,6 +1,6 @@
 ## `.vimrc`
 
-```vim
+```vim title="~/.vimrc"
 se nocp mouse=a
 se enc=utf-8
 se nu rnu sw=2 ts=2 et ai si hls is ic scs

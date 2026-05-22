@@ -2,6 +2,11 @@
 
 这是我的个人的收集和整理 XCPC 算法模板的项目，欢迎参考。
 
+本项目的 C++ 代码，除非另有说明，否则建议使用 **C++17 或更高版本** 的标准。
+
+!!! danger
+    本项目模板代码若无特殊说明，统一使用 0 索引下标，左开右闭表示区间，注意保持统一或者进行转换，避免造成未定义行为。
+
 本项目基于 [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) 生成静态站点，使用 [uv](https://github.com/astral-sh/uv) 管理 Python 依赖。
 
 欢迎提交 Pull Request 或通过 Issue 反馈问题。
