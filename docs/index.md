@@ -7,7 +7,7 @@
 !!! danger
     本项目模板代码若无特殊说明，统一使用 0 索引下标，左开右闭表示区间，注意保持统一或者进行转换，避免造成未定义行为。
 
-本项目基于 [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) 生成静态站点，使用 [uv](https://github.com/astral-sh/uv) 管理 Python 依赖。
+本项目基于 [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) 生成静态站点，使用 [uv](https://github.com/astral-sh/uv) 管理 Python 依赖，并使用 Nix flake 提供开发环境与构建、部署流程。
 
 欢迎提交 Pull Request 或通过 Issue 反馈问题。
 
@@ -26,7 +26,13 @@
 
 ## 打印此项目
 
-参阅 [打印](intro/print.md) 。
+本项目的打印功能基于 [OI-Wiki-export](https://github.com/OI-wiki/OI-Wiki-export) ，将整个站点导出为印刷质量的 PDF。
 
-本项目的打印功能基于 [OI-Wiki-export](https://github.com/OI-wiki/OI-Wiki-export) 。详情请参考仓库的 `export` 分支。
+仓库提供了 Nix flake，构建方式：
+
+```sh
+nix build .#print
+```
+
+生成的 PDF 位于 `result/pstrode.pdf` 。关于打印功能的更多说明，请参阅站点导航中的“打印”页面。
 

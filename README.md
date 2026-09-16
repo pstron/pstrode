@@ -2,9 +2,22 @@
 
 这是我的个人的收集和整理 XCPC 算法模板的项目，欢迎参考。
 
-本项目基于 [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) 生成静态站点，使用 [uv](https://github.com/astral-sh/uv) 管理 Python 依赖。
+本项目基于 [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) 生成静态站点，使用 [uv](https://github.com/astral-sh/uv) 管理 Python 依赖，并使用 Nix flake 提供开发环境、构建与部署流程。
 
 欢迎提交 Pull Request 或通过 Issue 反馈问题。
+
+## 使用 Nix
+
+仓库提供了 flake，包含静态站点与打印 PDF 的构建，以及开发环境与部署脚本。需要启用 flakes：
+
+```bash
+nix develop                 # 进入开发环境（Typst、Node.js、mkdocs 等）
+nix build .#site            # 构建静态站点 -> result/
+nix build .#print           # 构建打印用 PDF -> result/pstrode.pdf
+nix run .#serve             # 本地预览站点
+nix run .#print -- out.pdf  # 把 PDF 复制到 out.pdf
+nix run .#deploy -- result  # 部署静态站点到 Cloudflare Pages
+```
 
 ## 许可与免责
 
@@ -15,7 +28,13 @@
 
 ## 打印此项目
 
-本项目的打印功能基于 [OI-Wiki-export](https://github.com/OI-wiki/OI-Wiki-export) 。请参考仓库的 `export` 分支。
+本项目的打印功能基于 [OI-Wiki-export](https://github.com/OI-wiki/OI-Wiki-export) ，通过 flake input 跟踪上游更新，pstrode 自己的定制放在 [`print/`](print/) 目录中。
+
+```bash
+nix build .#print
+```
+
+生成的 PDF 位于 `result/pstrode.pdf` 。详见 [打印文档](docs/intro/print.md) 。
 
 ## 基于此创建您自己的项目
 
@@ -24,6 +43,15 @@
 你可以 fork 此项目。
 
 ### 本地部署
+
+#### 使用 Nix
+
+```bash
+nix develop
+mkdocs serve
+```
+
+#### 使用 uv
 
 本项目使用 [uv](https://github.com/astral-sh/uv) 管理 Python 依赖，请先安装 uv。
 
@@ -45,7 +73,16 @@ uv run mkdocs serve
 
 ### 部署到 Cloudflare Pages
 
-本项目通过 Cloudflare Pages 部署。若你也需要部署，可以：
+可以通过 Nix 构建并直接部署：
+
+```bash
+nix build .#site
+nix run .#deploy -- result
+```
+
+需要设置 `CLOUDFLARE_API_TOKEN` 与 `CLOUDFLARE_ACCOUNT_ID` ，项目名默认是 `pstrode` ，可用 `CLOUDFLARE_PAGES_PROJECT` 覆盖。
+
+也可以继续使用 Cloudflare Pages 的 Git 集成：
 
 导出依赖至 `requirements.txt`
 
@@ -54,7 +91,6 @@ uv export --no-hashes -o requirements.txt
 ```
 
 将仓库 push 到 GitHub 上。随后
-
 进入 Cloudflare dashboard ，前往 Workers & Pages 页面。
 
 选择 Create application
