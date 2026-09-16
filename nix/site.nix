@@ -3,7 +3,7 @@
 # Static site built with Material for MkDocs.
 pkgs.stdenvNoCC.mkDerivation {
   pname = "pstrode-site";
-  version = "0.1.0";
+  version = "0.2.0";
 
   inherit src;
 

@@ -32,7 +32,7 @@ let
     }:
     pkgs.buildNpmPackage {
       pname = "pstrode-print-${name}-node-modules";
-      version = "0.1.0";
+      version = "0.2.0";
       src = "${oi-wiki-export}/${dir}";
       npmDeps = pkgs.importNpmLock { npmRoot = "${oi-wiki-export}/${dir}"; };
       npmConfigHook = pkgs.importNpmLock.npmConfigHook;
@@ -79,7 +79,7 @@ let
 in
 pkgs.stdenvNoCC.mkDerivation {
   pname = "pstrode-print";
-  version = "0.1.0";
+  version = "0.2.0";
 
   inherit src;
 
