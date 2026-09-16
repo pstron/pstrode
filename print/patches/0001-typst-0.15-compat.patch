@@ -1,0 +1,30 @@
+--- a/oi-wiki-export-typst/oi-wiki.typ
++++ b/oi-wiki-export-typst/oi-wiki.typ
+@@ -6,7 +6,7 @@
+ 
+ #import "@preview/tablex:0.0.9": tablex
+ #import "@preview/tiaoma:0.3.0"
+-#import "@preview/mitex:0.2.5": mi, mitex
++#import "@preview/mitex:0.2.7": mi, mitex
+ #let sourcecode(body, highlight_color: rgb("#fffd11a1").lighten(70%)) = {
+   let rlines = ()
+   show raw.where(block: true): it => {
+--- a/oi-wiki-export-typst/pymdownx-details.typ
++++ b/oi-wiki-export-typst/pymdownx-details.typ
+@@ -1,4 +1,4 @@
+-#import "@preview/gentle-clues:1.2.0": *
++#import "@preview/gentle-clues:1.3.1": *
+ #import "constants.typ": *
+ /* BEGIN constants */
+ #let note-color = (bright: cmyk(10%, 5%, 0%, 0%), dark: cmyk(40%, 20%, 0%, 0%))
+--- a/oi-wiki-export-typst/constants.typ
++++ b/oi-wiki-export-typst/constants.typ
+@@ -7,7 +7,7 @@
+ // So we scale it back a little (equivalent to 9pt)
+ // issue: https://github.com/typst/typst/issues/1331
+ #let RAW_EM = 1.1em
+-#let en-font = "Crimson Text"
++#let en-font = "Crimson Pro"
+ 
+ // Page dimensions minus margin
+ #let serif-font = (

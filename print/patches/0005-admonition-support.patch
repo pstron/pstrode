@@ -1,0 +1,24 @@
+--- a/remark-typst/lib/compiler.js
++++ b/remark-typst/lib/compiler.js
+@@ -328,11 +328,18 @@
+         // inDetails = true
+         indentPar.push(true)
+ 
+-        const type = node.attributes.class
+-        const summary = parse(node.children[0])
++        const type = node.attributes.class || 'note'
++        // A summary child only exists for blocks with an explicit title
++        // (`??? note "Title"`).  Admonitions written without a title
++        // (`!!! danger`) must keep all of their children as content and use
++        // the capitalized type as the title.
++        const hasSummary = node.children.length > 0 && node.children[0].type === 'detailsContainerSummary'
++        const summary = hasSummary ? parse(node.children[0]) : capitalize(type)
++        if (hasSummary) {
++          node.children = node.children.slice(1)
++        }
+ 
+         unwrap = node.children && (node.children.length === 2) && (node.children[1].type === 'code')
+-        node.children = node.children.slice(1)
+ 
+         const ret = '#details(type: "{0}", unwrap: {1})[{2}][{3}]'.format(
+           type,

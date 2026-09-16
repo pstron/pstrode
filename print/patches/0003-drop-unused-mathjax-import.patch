@@ -1,0 +1,11 @@
+--- a/remark-typst/lib/compiler.js
++++ b/remark-typst/lib/compiler.js
+@@ -15,8 +15,6 @@
+ } from './util.js'
+ // Escape reserved symbols
+ import escape from '../escape-typst/src/index.js'
+-// MathJax SVG export
+-import { renderSvg } from '../remark-mathjax/svg.js'
+ 
+ // 给 String 添加 format 方法，方便格式化输出
+ if (!String.prototype.format) {

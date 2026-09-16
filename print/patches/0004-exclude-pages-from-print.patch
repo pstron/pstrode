@@ -1,0 +1,68 @@
+--- a/oi-wiki-export-typst/index.js
++++ b/oi-wiki-export-typst/index.js
+@@ -22,6 +22,45 @@
+ const INFO = "\x1b[1;32m[INFO]\x1b[0m "
+ const ERROR = "\x1b[1;31m[ERROR]\x1b[0m "
+ 
++// pstrode: pages that are exported to the website but must not end up in the
++// printed book.  Set PSTRODE_EXPORT_EXCLUDE to a comma separated list of
++// paths relative to docs/; a trailing slash excludes a whole directory, e.g.
++// "index.md,intro/".
++const EXCLUDED_PAGES = (process.env.PSTRODE_EXPORT_EXCLUDE || '')
++  .split(',')
++  .map(page => page.trim())
++  .filter(page => page !== '')
++
++function isExcluded(page) {
++  return EXCLUDED_PAGES.some(excluded => excluded.endsWith('/')
++    ? page.startsWith(excluded)
++    : page === excluded)
++}
++
++// Drop excluded pages from the navigation before anything else.  Doing this
++// on the catalog (instead of only skipping the conversion) also drops the
++// chapters that become empty and renumbers the remaining ones.
++function pruneCatalog(node) {
++  if (typeof node === 'string') {
++    return isExcluded(node) ? undefined : node
++  }
++  if (node instanceof Array) {
++    const kept = node.map(pruneCatalog).filter(child => child !== undefined)
++    return kept.length > 0 ? kept : undefined
++  }
++  if (node instanceof Object) {
++    const kept = {}
++    for (const key of Object.keys(node)) {
++      const child = pruneCatalog(node[key])
++      if (child !== undefined) {
++        kept[key] = child
++      }
++    }
++    return Object.keys(kept).length > 0 ? kept : undefined
++  }
++  return node
++}
++
+ // Traversed non-page labels.
+ // Used to avoid multiple label definition, which typst will
+ // consider to be an error.
+@@ -78,7 +117,7 @@
+   const configSchema = new Schema(types)
+ 
+   const config = load(yamlFileContent, { schema: configSchema })
+-  const catalog = config.nav // 文档目录
++  const catalog = pruneCatalog(config.nav) // 文档目录
+ 
+   let includes = ''
+   for (const id in catalog) {
+@@ -179,7 +218,9 @@
+     if (obj instanceof Array) {
+       let idx = 0
+       let label = ''
+-      while (true) {
++      // Guard the index: a chapter whose pages all lack a label used to loop
++      // forever here.
++      while (idx < obj.length) {
+         label = getLabel(obj[idx])
+         if (label !== '')
+           break

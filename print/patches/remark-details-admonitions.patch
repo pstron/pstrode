@@ -1,0 +1,20 @@
+--- a/lib/micromark-details/details.js
++++ b/lib/micromark-details/details.js
+@@ -15,7 +15,7 @@
+     // |???+ note "Title"
+     //  ^
+     const start = (code) => {
+-        if (code === codes.questionMark) {
++        if (code === codes.questionMark || code === codes.exclamationMark) {
+             openingMark = code;
+             effects.enter('detailsContainer', { _container: true });
+             self.containerState.type = 'detailsContainer';
+@@ -147,6 +147,8 @@
+ const details = {
+     document: {
+         [codes.questionMark]: detailsContainer,
++        // pstrode: also accept mkdocs style admonitions (`!!! note`).
++        [codes.exclamationMark]: detailsContainer,
+     },
+ };
+ export default details;
