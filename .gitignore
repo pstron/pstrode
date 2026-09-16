@@ -11,3 +11,10 @@ wheels/
 
 # Build
 site/
+
+# Nix
+result
+result-*
+
+# Print output
+*.pdf
