@@ -20,6 +20,8 @@ nav:
       - 并查集: ds/dsu.md
       - ST 表: ds/st.md
       - 线段树: ds/segtree.md
+  - 字符串:
+      - 字典树: string/trie.md
   - 技巧:
       - 前缀异或: trick/prexor.md
       - 排列 mex 与 min 转化: trick/p_mex_min.md
