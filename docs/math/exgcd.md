@@ -45,6 +45,8 @@ int exgcd(int a, int b, int &x, int &y) {
 
 - 迭代版本
 
+需要头文件 `<tuple>` 。
+
 ```cpp
 int exgcd(int a, int b, int &x, int &y) {
   int x1 = 1, x2 = 0, x3 = 0, x4 = 1;
