@@ -1,49 +1,4 @@
-## 简单版本
-
-### 简介
-
-代码量小，有路径压缩。
-
-### 代码
-
-所需头文件：
-
-- `<vector>`
-- `<numeric>`
-
-```cpp
-struct dsu {
-    std::vector<int> pa;
-    explicit dsu(int n) : pa(n) {
-        std::iota(pa.begin(), pa.end(), 0);
-    }
-    int find(int x) {
-        return pa[x] == x ? x : pa[x] = find(pa[x]);
-    }
-    bool unite(int x, int y) {
-        x = find(x), y = find(y);
-        if (x == y) return false;
-        pa[y] = x;
-        return true;
-    }
-};
-```
-
-### 复杂度
-
-| 项目                       | 复杂度           |
-| -------------------------- | ---------------: |
-| 初始化 `dsu(n)`            |      $\Theta(n)$ |
-| `find(x)` 单次最坏         |      $\Theta(n)$ |
-| `find(x)` 均摊             |      $O(\log n)$ |
-| `unite(x, y)` 单次最坏     |      $\Theta(n)$ |
-| `unite(x, y)` 均摊         |      $O(\log n)$ |
-| m 次合并操作总时间         | $O(n + m\log n)$ |
-| 结构自身占用空间           |      $\Theta(n)$ |
-| `find` 递归栈最坏额外空间  |      $\Theta(n)$ |
-
-
-## 进阶版本
+## DSU
 
 ### 简介
 
@@ -81,17 +36,16 @@ struct dsu {
 
 ### 复杂度
 
-| 项目                       |              复杂度 |
-| -------------------------- | ------------------: |
-| 初始化 `dsu(n)`            |         $\Theta(n)$ |
-| `find(x)` 单次最坏         |    $\Theta(\log n)$ |
-| `find(x)` 均摊             |      $O(\alpha(n))$ |
-| `unite(x, y)` 单次最坏     |    $\Theta(\log n)$ |
-| `unite(x, y)` 均摊         |      $O(\alpha(n))$ |
+| 项目                 | 复杂度                 |
+| ------------------ | -------------------:|
+| 初始化 `dsu(n)`       | $\Theta(n)$         |
+| `find(x)` 单次最坏     | $\Theta(\log n)$    |
+| `find(x)` 均摊       | $O(\alpha(n))$      |
+| `unite(x, y)` 单次最坏 | $\Theta(\log n)$    |
+| `unite(x, y)` 均摊   | $O(\alpha(n))$      |
 | m 次合并操作总时间         | $O(n + m\alpha(n))$ |
-| 结构自身占用空间           |         $\Theta(n)$ |
-| `find` 递归栈最坏额外空间  |    $\Theta(\log n)$ |
-
+| 结构自身占用空间           | $\Theta(n)$         |
+| `find` 递归栈最坏额外空间   | $\Theta(\log n)$    |
 
 ## ACL DSU
 
@@ -160,24 +114,22 @@ struct dsu {
 
 ### 复杂度
 
-| 项目                       | 复杂度           |
-| -------------------------- | ---------------: |
-| 默认构造 `dsu()`           |      $\Theta(1)$ |
-| 初始化 `dsu(n)`            |      $\Theta(n)$ |
-| `find(a)` 单次最坏         | $\Theta(\log n)$ |
-| `find(a)` 均摊             |   $O(\alpha(n))$ |
-| `unite(a, b)` 单次最坏     | $\Theta(\log n)$ |
-| `unite(a, b)` 均摊         |   $O(\alpha(n))$ |
-| `same(a, b)` 单次最坏      | $\Theta(\log n)$ |
-| `same(a, b)` 均摊          |   $O(\alpha(n))$ |
-| `size(a)` 单次最坏         | $\Theta(\log n)$ |
-| `size(a)` 均摊             |   $O(\alpha(n))$ |
-| `groups()` 总时间          | $O(n \alpha(n))$ |
-| 结构自身占用空间           |      $\Theta(n)$ |
-| `find` 递归栈最坏额外空间  | $\Theta(\log n)$ |
-
+| 项目                 | 复杂度              |
+| ------------------ | ----------------:|
+| 默认构造 `dsu()`       | $\Theta(1)$      |
+| 初始化 `dsu(n)`       | $\Theta(n)$      |
+| `find(a)` 单次最坏     | $\Theta(\log n)$ |
+| `find(a)` 均摊       | $O(\alpha(n))$   |
+| `unite(a, b)` 单次最坏 | $\Theta(\log n)$ |
+| `unite(a, b)` 均摊   | $O(\alpha(n))$   |
+| `same(a, b)` 单次最坏  | $\Theta(\log n)$ |
+| `same(a, b)` 均摊    | $O(\alpha(n))$   |
+| `size(a)` 单次最坏     | $\Theta(\log n)$ |
+| `size(a)` 均摊       | $O(\alpha(n))$   |
+| `groups()` 总时间     | $O(n \alpha(n))$ |
+| 结构自身占用空间           | $\Theta(n)$      |
+| `find` 递归栈最坏额外空间   | $\Theta(\log n)$ |
 
 ## 说明
 
 - $\alpha(n)$ 是反阿克曼函数，增长极慢，实际可视为常数。
-
