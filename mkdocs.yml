@@ -15,6 +15,7 @@ nav:
   - 数学:
       - 快速幂: math/binpow.md
       - 模逆元: math/modinv.md
+      - 扩展欧几里得: math/exgcd.md
       - modint 类: math/modint.md
   - 数据结构:
       - 并查集: ds/dsu.md
