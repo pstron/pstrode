@@ -40,20 +40,20 @@ i64 inv(i64 a, i64 p) {
 
 ```cpp
 std::vector<int> array_inv(const std::vector<int>& a, int m) {
-  int n = (int)a.size();
-  std::vector<int> prod(n);
-  i64 s = 1;
-  for (int i = 0; i < n; ++i) {
-    prod[i] = s;
-    s = s * a[i] % m;
-  }
-  s = inv(s, m);
-  std::vector<int> res(n);
-  for (int i = n - 1; i >= 0; --i) {
-    res[i] = s * prod[i] % m;
-    s = s * a[i] % m;
-  }
-  return res;
+    int n = (int)a.size();
+    std::vector<int> prod(n);
+    i64 s = 1;
+    for (int i = 0; i < n; ++i) {
+        prod[i] = s;
+        s = s * a[i] % m;
+    }
+    s = inv(s, m);
+    std::vector<int> res(n);
+    for (int i = n - 1; i >= 0; --i) {
+        res[i] = s * prod[i] % m;
+        s = s * a[i] % m;
+    }
+    return res;
 }
 ```
 
@@ -65,12 +65,12 @@ std::vector<int> array_inv(const std::vector<int>& a, int m) {
 
 ```cpp
 std::vector<int> init_inv(int n, int p) {
-  std::vector<int> res(n + 1);
-  res[1] = 1;
-  for (int i = 2; i <= n; ++i) {
-    res[i] = (i64)(p - p / i) * res[p % i] % p;
-  }
-  return res;
+    std::vector<int> res(n + 1);
+    res[1] = 1;
+    for (int i = 2; i <= n; ++i) {
+        res[i] = (i64)(p - p / i) * res[p % i] % p;
+    }
+    return res;
 }
 ```
 
