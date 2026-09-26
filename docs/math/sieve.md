@@ -28,17 +28,17 @@ const std::vector<bool> isp = [](int n) {
 ## Euler 筛法（线性筛法）
 
 ```cpp
-std::vector<int> primes{}, minp;
+std::vector<int> primes{}, spf;
 void sieve(int n = 1e7) {
-    minp.resize(n + 1);
+    spf.resize(n + 1);
     for (int i = 2; i <= n; ++i) {
-        if (!minp[i]) {
-            minp[i] = i;
+        if (!spf[i]) {
+            spf[i] = i;
             primes.push_back(i);
         }
         for (auto j : primes) {
-            if (j > minp[i] || j > n / i) break;
-            minp[i * j] = j;
+            if (j > spf[i] || j > n / i) break;
+            spf[i * j] = j;
         }
     }
 }

@@ -57,7 +57,7 @@ std::vector<int> array_inv(const std::vector<int>& a, int m) {
 }
 ```
 
-时间复杂度 $O(n + T_{inv}(m))$ 。
+时间复杂度 $\Theta(n + T_{inv}(m))$ 。
 
 ## 线性预处理逆元
 
@@ -74,4 +74,4 @@ std::vector<int> init_inv(int n, int p) {
 }
 ```
 
-时间复杂度 $O(n)$ 。
+时间复杂度 $\Theta(n)$ 。

@@ -62,4 +62,4 @@ int exgcd(int a, int b, int &x, int &y) {
 
 ### 复杂度
 
-时间复杂度 $O(\log \min(a, b))$。
+时间 $\Theta(\log\min(a,b))$ 。
